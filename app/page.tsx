@@ -1,3 +1,4 @@
+import Drawings from "./drawings";
 import WindowLight from "./window-light";
 
 const WORDMARK = "Zollman Blue";
@@ -5,6 +6,7 @@ const WORDMARK = "Zollman Blue";
 export default function Home() {
   return (
     <>
+      <Drawings />
       <WindowLight />
       <main className="page">
         <h1 className="logo" aria-label={WORDMARK}>
