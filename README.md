@@ -83,3 +83,7 @@ Push to GitHub and import the repository in [Vercel](https://vercel.com/new). Ve
 ```bash
 npx vercel --prod
 ```
+
+### Analytics
+
+The site uses [Vercel Web Analytics](https://vercel.com/docs/analytics) (`<Analytics />` in `app/layout.tsx`). To start collecting visits, open the project in Vercel, go to the **Analytics** tab and click **Enable**; data appears after the next deploy. Nothing is tracked when running locally.
