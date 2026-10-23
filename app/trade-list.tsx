@@ -75,122 +75,127 @@ export default function TradeList() {
   }
 
   return (
-    <dialog
-      ref={dialog}
-      className={`trade-list ${figtree.className}`}
-      aria-labelledby="trade-list-title"
-      onCancel={(e) => {
-        e.preventDefault();
-        close();
-      }}
-      onClick={(e) => {
-        if (e.target === dialog.current) close();
-      }}
-    >
-      <div className="tl-art">
-        <p className="tl-wordmark">Zollman Blue</p>
-        <div className="tl-photo" />
-        <p className="tl-place">Johnson City, Texas</p>
-      </div>
+    <>
+      <button type="button" className="cta" onClick={() => dialog.current?.showModal()}>
+        Join the Trade List
+      </button>
+      <dialog
+        ref={dialog}
+        className={`trade-list ${figtree.className}`}
+        aria-labelledby="trade-list-title"
+        onCancel={(e) => {
+          e.preventDefault();
+          close();
+        }}
+        onClick={(e) => {
+          if (e.target === dialog.current) close();
+        }}
+      >
+        <div className="tl-art">
+          <p className="tl-wordmark">Zollman Blue</p>
+          <div className="tl-photo" />
+          <p className="tl-place">Johnson City, Texas</p>
+        </div>
 
-      <div className="tl-body">
-        <span className="tl-grip" aria-hidden="true" />
-        <button type="button" className="tl-close" aria-label="Close" onClick={close}>
-          <svg viewBox="0 0 24 24" aria-hidden="true">
-            <path d="m5 5 14 14M19 5 5 19" />
-          </svg>
-        </button>
-        <div className="tl-photo-wide" />
+        <div className="tl-body">
+          <span className="tl-grip" aria-hidden="true" />
+          <button type="button" className="tl-close" aria-label="Close" onClick={close}>
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="m5 5 14 14M19 5 5 19" />
+            </svg>
+          </button>
+          <div className="tl-photo-wide" />
 
-        <p className="tl-eyebrow">The Trade List</p>
-        <h2 id="trade-list-title" className="tl-title">
-          First look, <br className="tl-break" />
-          <em>before the floor.</em>
-        </h2>
+          <p className="tl-eyebrow">The Trade List</p>
+          <h2 id="trade-list-title" className="tl-title">
+            First look, <br className="tl-break" />
+            <em>before the floor.</em>
+          </h2>
 
-        {status === "joined" ? (
-          <>
-            <p className="tl-copy">
-              You&rsquo;re on the list. Watch your inbox for the next arrivals from Hill Country
-              estates.
-            </p>
-            <div className="tl-footer">
-              <span />
-              <button type="button" className="tl-skip" onClick={close}>
-                Close
-              </button>
-            </div>
-          </>
-        ) : (
-          <form onSubmit={submit}>
-            <p className="tl-copy">
-              New finds arrive each week from Hill Country estates. Join for early previews, trade
-              pricing, and the pieces we hold for designers.
-            </p>
+          {status === "joined" ? (
+            <>
+              <p className="tl-copy">
+                You&rsquo;re on the list. Watch your inbox for the next arrivals from Hill Country
+                estates.
+              </p>
+              <div className="tl-footer">
+                <span />
+                <button type="button" className="tl-skip" onClick={close}>
+                  Close
+                </button>
+              </div>
+            </>
+          ) : (
+            <form onSubmit={submit}>
+              <p className="tl-copy">
+                New finds arrive each week from Hill Country estates. Join for early previews, trade
+                pricing, and the pieces we hold for designers.
+              </p>
 
-            <fieldset className="tl-audience">
-              <legend className="tl-sr">I am a</legend>
-              <label>
+              <fieldset className="tl-audience">
+                <legend className="tl-sr">I am a</legend>
+                <label>
+                  <input
+                    type="radio"
+                    name="audience"
+                    value="trade"
+                    checked={audience === "trade"}
+                    onChange={() => setAudience("trade")}
+                  />
+                  Designer or trade
+                </label>
+                <label>
+                  <input
+                    type="radio"
+                    name="audience"
+                    value="collector"
+                    checked={audience === "collector"}
+                    onChange={() => setAudience("collector")}
+                  />
+                  Collector
+                </label>
+              </fieldset>
+
+              <div className="tl-field">
+                <label htmlFor="trade-list-email" className="tl-sr">
+                  Email address
+                </label>
                 <input
-                  type="radio"
-                  name="audience"
-                  value="trade"
-                  checked={audience === "trade"}
-                  onChange={() => setAudience("trade")}
+                  id="trade-list-email"
+                  type="email"
+                  name="email"
+                  autoComplete="email"
+                  placeholder="Email address"
+                  required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                 />
-                Designer or trade
-              </label>
-              <label>
-                <input
-                  type="radio"
-                  name="audience"
-                  value="collector"
-                  checked={audience === "collector"}
-                  onChange={() => setAudience("collector")}
-                />
-                Collector
-              </label>
-            </fieldset>
+                <button type="submit" disabled={status === "sending"}>
+                  {status === "sending" ? (
+                    "Joining…"
+                  ) : (
+                    <>
+                      <span className="tl-desktop-only">Join</span>
+                      <span className="tl-mobile-only">Join the list</span>
+                    </>
+                  )}
+                </button>
+              </div>
+              <p className="tl-error" role="alert">
+                {status === "error" ? error : ""}
+              </p>
 
-            <div className="tl-field">
-              <label htmlFor="trade-list-email" className="tl-sr">
-                Email address
-              </label>
-              <input
-                id="trade-list-email"
-                type="email"
-                name="email"
-                autoComplete="email"
-                placeholder="Email address"
-                required
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-              <button type="submit" disabled={status === "sending"}>
-                {status === "sending" ? (
-                  "Joining…"
-                ) : (
-                  <>
-                    <span className="tl-desktop-only">Join</span>
-                    <span className="tl-mobile-only">Join the list</span>
-                  </>
-                )}
-              </button>
-            </div>
-            <p className="tl-error" role="alert">
-              {status === "error" ? error : ""}
-            </p>
-
-            <div className="tl-footer">
-              <span>A few notes a month. Never shared.</span>
-              <button type="button" className="tl-skip" onClick={close}>
-                <span className="tl-desktop-only">No thank you</span>
-                <span className="tl-mobile-only">No thanks</span>
-              </button>
-            </div>
-          </form>
-        )}
-      </div>
-    </dialog>
+              <div className="tl-footer">
+                <span>A few notes a month. Never shared.</span>
+                <button type="button" className="tl-skip" onClick={close}>
+                  <span className="tl-desktop-only">No thank you</span>
+                  <span className="tl-mobile-only">No thanks</span>
+                </button>
+              </div>
+            </form>
+          )}
+        </div>
+      </dialog>
+    </>
   );
 }

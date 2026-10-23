@@ -78,26 +78,83 @@ body {
 .place {
   text-transform: uppercase;
   font-weight: 500;
-  margin-right: -0.5em; /* offset trailing letter-spacing so it centers */
 }
 
 .soon {
-  margin-top: clamp(2.5rem, 7vw, 5rem);
-  font-size: clamp(0.8rem, 1.7vw, 1.25rem);
+  display: flex;
+  align-items: center;
+  gap: clamp(0.75rem, 2vw, 1.5rem);
+  margin-bottom: clamp(1.75rem, 4.5vw, 3.25rem);
+  font-size: clamp(0.75rem, 1.5vw, 1.1rem);
   letter-spacing: 0.5em;
+}
+
+.soon span {
+  margin-right: -0.5em; /* offset trailing letter-spacing so it centers between the ornaments */
+  white-space: nowrap;
+}
+
+.flourish {
+  width: clamp(3.5rem, 9vw, 7.5rem);
+  height: auto;
+  fill: currentColor;
+  overflow: visible;
+}
+
+.flourish:last-child {
+  transform: scaleX(-1);
+}
+
+.flourish-line {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 0.9;
+  stroke-linecap: round;
 }
 
 .place {
   margin-top: clamp(0.6rem, 1.2vw, 0.9rem);
+  margin-right: -0.5em; /* offset trailing letter-spacing so it centers */
   font-size: clamp(0.6rem, 1.05vw, 0.8rem);
   letter-spacing: 0.5em;
   opacity: 0.85;
 }
 
+/* The logo's hover in reverse: the outline fills in quickly on enter and fades back out slowly. */
+.cta {
+  margin-top: clamp(2.5rem, 6vw, 4.5rem);
+  padding: 1.1em 2.4em 1.1em 2.9em; /* extra left offsets trailing letter-spacing */
+  border: 1px solid var(--navy);
+  background: #fff;
+  color: var(--navy);
+  font: inherit;
+  font-weight: 500;
+  font-size: clamp(0.7rem, 1.2vw, 0.9rem);
+  letter-spacing: 0.5em;
+  text-transform: uppercase;
+  transition:
+    background-color 1.6s cubic-bezier(0.25, 0.1, 0.25, 1),
+    color 1.6s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.cta:hover,
+.cta:focus-visible {
+  background: var(--navy);
+  color: #fff;
+  transition:
+    background-color 0.12s cubic-bezier(0.2, 0.9, 0.3, 1),
+    color 0.12s cubic-bezier(0.2, 0.9, 0.3, 1);
+}
+
+.cta:focus-visible {
+  outline: 1px solid var(--navy);
+  outline-offset: 3px;
+}
+
 .contact {
   list-style: none;
   padding: 0;
-  margin-top: clamp(1rem, 2vw, 1.5rem);
+  margin-top: clamp(2rem, 4.5vw, 3.25rem);
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -130,41 +187,6 @@ body {
   stroke-linejoin: round;
   stroke-linecap: round;
   opacity: 0.85;
-}
-
-/* Onion-skin drawings: navy line art at very low opacity, drifting upward on a seamless loop. */
-.drawings {
-  position: fixed;
-  inset: 0;
-  overflow: hidden;
-  pointer-events: none;
-  opacity: 0.045;
-}
-
-.drawings-track {
-  position: absolute;
-  inset: 0 0 auto 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 14vh;
-  padding-bottom: 14vh; /* trailing gap so both halves are equal and -50% lands exactly */
-  animation: drawings-scroll 300s linear infinite;
-  will-change: transform;
-}
-
-.drawings img {
-  height: var(--h);
-  width: auto;
-  max-width: 90vw;
-  object-fit: contain;
-  transform: translateX(var(--x));
-}
-
-@keyframes drawings-scroll {
-  to {
-    transform: translateY(-50%);
-  }
 }
 
 /* Window light: six warm panes separated by blurred mullion shadows. Animated from window-light.tsx. */
@@ -206,6 +228,7 @@ body {
   margin: auto;
   background: var(--bg);
   color: var(--tl-ink);
+  text-align: left;
   display: none;
   grid-template-columns: 41% 1fr;
   overflow: auto;
@@ -529,12 +552,11 @@ body {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .drawings-track {
-    animation: none;
-  }
-
   .logo span,
-  .logo span:hover {
+  .logo span:hover,
+  .cta,
+  .cta:hover,
+  .cta:focus-visible {
     transition: none;
   }
 

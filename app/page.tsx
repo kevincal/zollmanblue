@@ -1,15 +1,34 @@
-import Drawings from "./drawings";
 import TradeList from "./trade-list";
 import WindowLight from "./window-light";
 
 const WORDMARK = "Zollman Blue";
 
+// Book-style rule ornament: a hairline ending in a pair of curls and a lozenge, drawn pointing
+// right. The right-hand copy is mirrored in CSS.
+function Flourish() {
+  return (
+    <svg className="flourish" viewBox="0 0 120 16" aria-hidden="true">
+      <circle cx="2.5" cy="8" r="1.2" />
+      <path className="flourish-line" d="M4 8h74" />
+      <path
+        className="flourish-line"
+        d="M78 8c8 0 10-6 16-6 5 0 6 5 2 6.5-3 1-5-2-2-3M78 8c8 0 10 6 16 6 5 0 6-5 2-6.5-3-1-5 2-2 3"
+      />
+      <path d="m104 8 4.5-3.2L113 8l-4.5 3.2z" />
+    </svg>
+  );
+}
+
 export default function Home() {
   return (
     <>
-      <Drawings />
       <WindowLight />
       <main className="page">
+        <p className="soon">
+          <Flourish />
+          <span>Coming Soon</span>
+          <Flourish />
+        </p>
         <h1 className="logo" aria-label={WORDMARK}>
           {[...WORDMARK].map((ch, i) =>
             ch === " " ? (
@@ -22,7 +41,7 @@ export default function Home() {
           )}
         </h1>
         <p className="tagline">Vintage Home &amp; Objects</p>
-        <p className="soon">Coming Soon</p>
+        <TradeList />
         <ul className="contact">
           <li>
             <a href="mailto:hello@zollmanblue.com">
@@ -44,7 +63,6 @@ export default function Home() {
         </ul>
         <p className="place">Johnson City, Texas</p>
       </main>
-      <TradeList />
     </>
   );
 }
