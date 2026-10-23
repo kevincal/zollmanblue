@@ -192,6 +192,342 @@ body {
   background: var(--sun);
 }
 
+/* Trade List signup: split popup on desktop, bottom sheet on mobile. Opened from trade-list.tsx. */
+.trade-list {
+  --tl-ink: #1d1d1b;
+  --tl-muted: #55524c;
+  --tl-line: #c9c2b2;
+  --tl-photo: url("/hank.jpg");
+  width: min(1100px, calc(100vw - 2rem));
+  max-width: none;
+  max-height: calc(100svh - 2rem);
+  padding: 0;
+  border: 0;
+  margin: auto;
+  background: var(--bg);
+  color: var(--tl-ink);
+  display: none;
+  grid-template-columns: 41% 1fr;
+  overflow: auto;
+  box-shadow: 0 30px 80px rgba(10, 39, 73, 0.25);
+}
+
+.trade-list[open] {
+  display: grid;
+  animation: tl-fade 0.35s ease-out;
+}
+
+.trade-list::backdrop {
+  background: rgba(10, 39, 73, 0.45);
+  animation: tl-fade 0.35s ease-out;
+}
+
+.tl-art {
+  background: var(--navy);
+  color: var(--bg);
+  padding: clamp(2rem, 4vw, 3.5rem) clamp(1.5rem, 3.5vw, 3.25rem);
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+.tl-wordmark {
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 2.6vw, 2.2rem);
+  line-height: 1;
+}
+
+.tl-photo {
+  flex: 1;
+  min-height: 18rem;
+  border: 1px solid rgba(248, 241, 227, 0.35);
+  background: 30% 55% / cover no-repeat var(--tl-photo);
+}
+
+.tl-place {
+  font-size: 0.8rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+}
+
+.tl-body {
+  position: relative;
+  padding: clamp(2.5rem, 5vw, 4.5rem) clamp(1.5rem, 6vw, 5.5rem) clamp(2rem, 4vw, 3.5rem);
+}
+
+.tl-grip,
+.tl-photo-wide,
+.tl-mobile-only {
+  display: none;
+}
+
+.tl-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.tl-close {
+  position: absolute;
+  top: 1.75rem;
+  right: 1.75rem;
+  padding: 0.25rem;
+  border: 0;
+  background: none;
+  color: var(--tl-muted);
+}
+
+.tl-close svg {
+  display: block;
+  width: 1.6rem;
+  height: 1.6rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+}
+
+.tl-eyebrow {
+  color: var(--navy);
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+}
+
+.tl-title {
+  margin-top: 1.5rem;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(2.6rem, 5vw, 4rem);
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+}
+
+.tl-copy {
+  margin-top: 1.75rem;
+  max-width: 36rem;
+  color: var(--tl-muted);
+  font-size: 1.15rem;
+  line-height: 1.65;
+}
+
+.tl-audience {
+  margin-top: 2.25rem;
+  padding: 0;
+  border: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 2rem;
+  font-size: 1.15rem;
+}
+
+.tl-audience label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.tl-audience input {
+  appearance: none;
+  margin: 0;
+  width: 1.3rem;
+  height: 1.3rem;
+  border: 1px solid var(--tl-muted);
+  border-radius: 50%;
+  background: #fff;
+}
+
+.tl-audience input:checked {
+  border-color: var(--navy);
+  background: radial-gradient(var(--navy) 0 45%, #fff 50%);
+}
+
+.tl-field {
+  margin-top: 2.25rem;
+  display: flex;
+}
+
+.tl-field input {
+  flex: 1;
+  min-width: 0;
+  padding: 1.15rem 1.5rem;
+  border: 1px solid var(--tl-line);
+  border-right: 0;
+  border-radius: 0;
+  background: #fff;
+  color: var(--tl-ink);
+  font: inherit;
+  font-size: 1.15rem;
+}
+
+.tl-field input:focus-visible,
+.tl-audience input:focus-visible,
+.tl-field button:focus-visible {
+  outline: 2px solid var(--navy);
+  outline-offset: 2px;
+}
+
+.tl-field button {
+  padding: 0 2.25rem;
+  border: 0;
+  background: var(--navy);
+  color: var(--bg);
+  font: inherit;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.tl-field button:disabled {
+  opacity: 0.7;
+}
+
+.tl-error {
+  min-height: 1.5rem;
+  margin-top: 0.5rem;
+  color: #a33a2b;
+  font-size: 0.95rem;
+}
+
+.tl-footer {
+  margin-top: 3rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  color: var(--tl-muted);
+  font-size: 1rem;
+}
+
+.tl-skip {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--navy);
+  font: inherit;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+@keyframes tl-fade {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes tl-rise {
+  from {
+    transform: translateY(100%);
+  }
+}
+
+@media (max-width: 720px) {
+  .trade-list {
+    width: 100%;
+    max-height: 92svh;
+    margin: auto 0 0;
+    grid-template-columns: 1fr;
+    box-shadow: none;
+  }
+
+  .trade-list[open] {
+    display: block;
+    animation: tl-rise 0.4s cubic-bezier(0.2, 0.9, 0.3, 1);
+  }
+
+  .tl-art {
+    display: none;
+  }
+
+  .tl-body {
+    padding: 1.75rem 1.5rem 2.5rem;
+  }
+
+  .tl-photo-wide {
+    display: block;
+    aspect-ratio: 16 / 7;
+    background: 35% 50% / cover no-repeat var(--tl-photo) var(--navy);
+  }
+
+  .tl-grip {
+    display: block;
+    margin-bottom: 1.75rem;
+    width: 2.75rem;
+    height: 4px;
+    margin-top: -0.75rem;
+    margin-inline: auto;
+    border-radius: 2px;
+    background: var(--tl-line);
+  }
+
+  .tl-close {
+    top: 1.25rem;
+    right: 1.25rem;
+  }
+
+  .tl-close svg {
+    width: 1.3rem;
+    height: 1.3rem;
+  }
+
+  .tl-eyebrow {
+    margin-top: 1.5rem;
+    font-size: 0.75rem;
+  }
+
+  .tl-title {
+    margin-top: 1rem;
+    font-size: clamp(1.9rem, 8vw, 2.4rem);
+  }
+
+  .tl-break,
+  .tl-desktop-only {
+    display: none;
+  }
+
+  .tl-mobile-only {
+    display: inline;
+  }
+
+  .tl-copy,
+  .tl-audience,
+  .tl-field input {
+    font-size: 1rem;
+  }
+
+  .tl-copy {
+    margin-top: 1rem;
+  }
+
+  .tl-audience,
+  .tl-field {
+    margin-top: 1.5rem;
+  }
+
+  .tl-field {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .tl-field input {
+    border-right: 1px solid var(--tl-line);
+  }
+
+  .tl-field button {
+    padding: 1.1rem;
+  }
+
+  .tl-footer {
+    margin-top: 1.5rem;
+    font-size: 0.9rem;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .drawings-track {
     animation: none;
@@ -200,5 +536,10 @@ body {
   .logo span,
   .logo span:hover {
     transition: none;
+  }
+
+  .trade-list[open],
+  .trade-list::backdrop {
+    animation: none;
   }
 }

@@ -1,4 +1,5 @@
 import Drawings from "./drawings";
+import TradeList from "./trade-list";
 import WindowLight from "./window-light";
 
 const WORDMARK = "Zollman Blue";
@@ -43,6 +44,7 @@ export default function Home() {
         </ul>
         <p className="place">Johnson City, Texas</p>
       </main>
+      <TradeList />
     </>
   );
 }

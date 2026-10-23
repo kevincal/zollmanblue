@@ -9,6 +9,7 @@ const bodoni = Bodoni_Moda({
   axes: ["opsz"],
   style: ["normal", "italic"],
   display: "swap",
+  variable: "--font-display",
 });
 
 const KLAVIYO_COMPANY_ID = "Uy3cbN";
@@ -41,7 +42,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={bodoni.className}>
+    <html lang="en" className={`${bodoni.className} ${bodoni.variable}`}>
       <body>
         {children}
         <Analytics />
