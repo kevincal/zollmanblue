@@ -189,6 +189,57 @@ body {
   opacity: 0.85;
 }
 
+/* Canvas: warp and weft threads (stretched noise, one horizontal, one vertical) plus a fine
+   slub grain, in a warm undyed-linen brown. Above it, broad soft folds drift slowly like fabric moving in a draft. */
+.fabric {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.fabric::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='320'%3E%3Cfilter id='a'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.02 .85' numOctaves='2' seed='4' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .36 0 0 0 0 .27 0 0 0 0 .17 1.6 0 0 0 -.7'/%3E%3C/filter%3E%3Cfilter id='b'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85 .02' numOctaves='2' seed='9' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .36 0 0 0 0 .27 0 0 0 0 .17 1.6 0 0 0 -.7'/%3E%3C/filter%3E%3Cfilter id='c'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' seed='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .36 0 0 0 0 .27 0 0 0 0 .17 1.2 0 0 0 -.45'/%3E%3C/filter%3E%3Crect width='100%' height='100%' filter='url(%23a)'/%3E%3Crect width='100%' height='100%' filter='url(%23b)'/%3E%3Crect width='100%' height='100%' filter='url(%23c)' opacity='.6'/%3E%3C/svg%3E") 0 0 / 320px 320px;
+  opacity: 0.15;
+}
+
+.fabric-folds {
+  position: absolute;
+  inset: -40%;
+  background:
+    linear-gradient(
+      108deg,
+      transparent 0%,
+      rgba(10, 39, 73, 0.045) 14%,
+      transparent 24%,
+      rgba(255, 255, 255, 0.35) 33%,
+      transparent 42%,
+      rgba(10, 39, 73, 0.04) 55%,
+      transparent 64%,
+      rgba(255, 255, 255, 0.3) 74%,
+      transparent 84%,
+      rgba(10, 39, 73, 0.035) 94%,
+      transparent 100%
+    );
+  animation: fabric-sway 38s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+@keyframes fabric-sway {
+  0% {
+    transform: translate3d(-4%, -1%, 0) rotate(-1.5deg) scale(1);
+  }
+  50% {
+    transform: translate3d(2%, 1.5%, 0) rotate(0.5deg) scale(1.04);
+  }
+  100% {
+    transform: translate3d(5%, -0.5%, 0) rotate(2deg) scale(1.01);
+  }
+}
+
 /* Window light: six warm panes separated by blurred mullion shadows. Animated from window-light.tsx. */
 .light-layer {
   position: fixed;
@@ -552,6 +603,10 @@ body {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .fabric-folds {
+    animation: none;
+  }
+
   .logo span,
   .logo span:hover,
   .cta,

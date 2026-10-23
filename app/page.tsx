@@ -23,6 +23,9 @@ export default function Home() {
   return (
     <>
       <WindowLight />
+      <div className="fabric" aria-hidden="true">
+        <div className="fabric-folds" />
+      </div>
       <main className="page">
         <p className="soon">
           <Flourish />

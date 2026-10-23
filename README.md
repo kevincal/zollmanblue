@@ -46,6 +46,7 @@ npm start
 - **Cursor:** a thin navy line arrow, drawn as an inline SVG in the `--cursor` variable.
 - **Hover:** each letter of the wordmark turns into a 0.5px navy outline. It pops in over 0.12s and fades back over 1.6s; change these in the `.logo span` rules. The animation is turned off for visitors who have reduced motion enabled.
 - **Window light:** every so often, a soft patch of afternoon window light drifts across the background (`app/window-light.tsx`, styled under `.window-light` in `app/globals.css`). The first one appears 10–20s after the page loads, then one every 45–120s at random. Each lasts 10–14s. It pauses while the tab is hidden and is off for visitors who have reduced motion enabled. Open [http://localhost:3000/?light](http://localhost:3000/?light) to see it right away, repeating every few seconds.
+- **Canvas background:** a woven linen texture (generated noise, no image files) under broad soft folds that sway slowly over 38s, like fabric moving in a draft. Texture strength is the `.fabric::before` opacity and the folds are `.fabric-folds` in `app/globals.css`. The folds hold still for visitors who have reduced motion enabled.
 
 ## Deploy
 
