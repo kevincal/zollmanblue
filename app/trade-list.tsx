@@ -77,7 +77,7 @@ export default function TradeList() {
   return (
     <>
       <button type="button" className="cta" onClick={() => dialog.current?.showModal()}>
-        Join the Trade List
+        Join the List
       </button>
       <dialog
         ref={dialog}
@@ -106,10 +106,10 @@ export default function TradeList() {
           </button>
           <div className="tl-photo-wide" />
 
-          <p className="tl-eyebrow">The Trade List</p>
+          <p className="tl-eyebrow">The List</p>
           <h2 id="trade-list-title" className="tl-title">
-            First look, <br className="tl-break" />
-            <em>before the floor.</em>
+            First look <br className="tl-break" />
+            <em>at new arrivals.</em>
           </h2>
 
           {status === "joined" ? (
@@ -128,8 +128,7 @@ export default function TradeList() {
           ) : (
             <form onSubmit={submit}>
               <p className="tl-copy">
-                New finds arrive each week from Hill Country estates. Join for early previews, trade
-                pricing, and the pieces we hold for designers.
+                New vintage finds arrive each week. Join for early previews and design updates.
               </p>
 
               <fieldset className="tl-audience">
