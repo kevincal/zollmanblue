@@ -77,6 +77,20 @@ export default function Home() {
               @zollmanblue
             </a>
           </li>
+          <li>
+            <a
+              href="https://www.google.com/maps/dir/?api=1&destination=117+N+Nugent+Ave%2C+Johnson+City%2C+TX+78636"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Directions to 117 N Nugent Ave, Johnson City, TX 78636"
+            >
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M12 21s-6.5-6.2-6.5-11.5a6.5 6.5 0 0 1 13 0C18.5 14.8 12 21 12 21Z" />
+                <circle cx="12" cy="9.5" r="2.25" />
+              </svg>
+              Directions
+            </a>
+          </li>
         </ul>
         <p className="place">Johnson City, Texas</p>
       </main>
